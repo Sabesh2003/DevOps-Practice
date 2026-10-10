@@ -1,0 +1,27 @@
+
+name: DevOps Practice CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Check script exists
+        run: test -f check_disk.sh
+
+      - name: Validate Bash syntax
+        run: bash -n check_disk.sh
+
+      - name: Display success
+        run: echo "CI checks passed successfully!"
